@@ -1,0 +1,103 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.ComCtrls, Vcl.StdCtrls,
+  Vcl.Grids, Vcl.DBGrids, Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls, Vcl.WinXCalendars, Vcl.WinXCtrls,
+  Vcl.Buttons, Vcl.ExtDlgs, frxClass, frxDBSet, Vcl.Imaging.pngimage, Vcl.Menus,
+  System.ImageList, mmsystem, Vcl.ImgList, HTMLHelpViewer, Data.Win.ADODB;
+
+type
+  TForm1 = class(TForm)
+    Panel1: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    DBComboBox1: TDBComboBox;
+    Label5: TLabel;
+    Label6: TLabel;
+    DBComboBox2: TDBComboBox;
+    Label8: TLabel;
+    DBComboBox3: TDBComboBox;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    frxDBDataset1: TfrxDBDataset;
+    frxReport1: TfrxReport;
+    DBNavigator1: TDBNavigator;
+    Label7: TLabel;
+    Image1: TImage;
+    Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    DBEDIT1: TDBEdit;
+    DBEDIT2: TDBEdit;
+    DBEDIT4: TDBEdit;
+    DBEDIT3: TDBEdit;
+    DBETID5: TDBEdit;
+    DBGrid1: TDBGrid;
+    MainMenu1: TMainMenu;
+    help1: TMenuItem;
+    propos1: TMenuItem;
+    ADOConnection1: TADOConnection;
+    ADOTable1: TADOTable;
+    DataSource1: TDataSource;
+    procedure Image2Click(Sender: TObject);
+    procedure Image5Click(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
+    procedure propos1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+  private
+    { Déclarations privées }
+  public
+    { Décl Harations publiques }
+  end;
+
+var
+  Form1: TForm1;
+  rep: string ;
+
+implementation
+
+{$R *.dfm}
+
+uses Unit2;
+
+
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+      Application.HelpFile:= ExtractFilePath(Application.ExeName)+ 'data\information_personale.mdf'  ;
+end;
+
+procedure TForm1.Image1Click(Sender: TObject);
+begin
+frxReport1.Print;
+end;
+
+procedure TForm1.Image2Click(Sender: TObject);
+begin
+frxReport1.ShowReport;
+end;
+
+procedure TForm1.Image5Click(Sender: TObject);
+begin
+rep:=inputbox('Recherche'  , 'entré le numéro :' , '' );
+rep:=uppercase(rep);
+if rep <>  '' then
+begin
+if  ADOTable1.Locate('id' , rep , [locaseInsensitive])=false then showmessage ('Le NUMERO  : ' +rep+' N existe pas  ')
+end;
+end ;
+
+
+procedure TForm1.propos1Click(Sender: TObject);
+begin
+    Form2.ShowModal ;
+end;
+
+end.
